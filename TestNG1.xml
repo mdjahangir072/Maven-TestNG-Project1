@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+  
+  	<classes> 
+      <class name="testPackage.BootsTrapLogin"/>
+      <class name="testPackage.DatePicker"/>
+      <class name="testPackage.DatePickerMakeMyTrip"/>
+      <class name="testPackage.DatePickerYatra"/>
+      <class name="testPackage.Day1Demo"/>
+      <class name="testPackage.Day1Demo2"/>
+      <class name="testPackage.DragAndDrop"/>
+      <class name="testPackage.FileLoadRobotTest"/>
+      <class name="testPackage.FirstTestNGClass"/>
+      <class name="testPackage.FramesExample"/>
+      <class name="testPackage.MoveToElement"/>
+      <class name="testPackage.multipleWindows"/>
+      <class name="testPackage.ScreenCapture"/>
+      <class name="testPackage.Scroll"/>
+       
+      
+    </classes> 
+    
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
