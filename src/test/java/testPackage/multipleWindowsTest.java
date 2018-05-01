@@ -10,26 +10,22 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class DatePicker {
+public class multipleWindowsTest {
 	
 	static WebDriver driver;
 	
 	
 	@Test
-	public static void PickDate () throws InterruptedException, IOException {
+	public static void TestFB () throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 		
 		
@@ -57,9 +53,9 @@ public class DatePicker {
 		
 		case "Firefox":
 			System.setProperty("webdriver.gecko.driver", "D:\\JavaPrograms\\MyEclipseProjects\\ETL Hive Selenium\\driver\\geckodriver.exe");
-		//	DesiredCapabilities capibilities=DesiredCapabilities.firefox();
-		//	capibilities.setCapability("marionette", true);
-		//	driver=new FirefoxDriver(capibilities);
+			DesiredCapabilities capibilities=DesiredCapabilities.firefox();
+			capibilities.setCapability("marionette", true);
+			driver=new FirefoxDriver(capibilities);
 			driver=new FirefoxDriver();
 			break;
 		
@@ -73,41 +69,41 @@ public class DatePicker {
 		
 		}
 		
-		driver.get("https://redbus.in");
+		driver.get("https://www.naukri.com/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		Actions act = new Actions(driver);
 		
-		driver.findElement(By.xpath("//span[@class='fl icon-calendar_icon-new icon-onward-calendar icon']")).click();
-		System.out.println("Clicked on Calender ");
-		List<WebElement> dates =driver.findElements(By.xpath("//div[@class='rb-calendar']//table//tr//td"));
-		System.out.println("Got the Dates List"+dates);
-		int total_no=dates.size();
-		System.out.println("List Size "+total_no);
-		for (int i=0;i<total_no;i++)
+		String parent=driver.getWindowHandle();
+		System.out.println("Parent is :"+parent);
+		
+		Set<String> s1= driver.getWindowHandles();
+		
+		Iterator<String> itr=s1.iterator();
+		
+		while(itr.hasNext())
 		{
-			System.out.println("In For ");
-			String date=dates.get(i).getText();
-					
-					System.out.println(date);
-				
-						if (date.equalsIgnoreCase("27"))
-						{
-							
-							System.out.println("In If");
-							//dates.get(i).click();
-							act.click(dates.get(i)).build().perform();
-							System.out.println();
-							Thread.sleep(2000);
-							break;
-						}
-					
 			
-		}
+			String child_window=itr.next();
+			System.out.println("Child Window is : "+child_window);
+			
+			
+			
+			if (!parent.equals(child_window))
 				
-		
-		driver.close();
+			{
+				
+				driver.switchTo().window(child_window);
+				System.out.println(driver.switchTo().window(child_window).getTitle());
+				driver.close();
+			}
+		}
 	
+		
+	driver.switchTo().window(parent);
+	driver.quit();
+		
+
+		
 		
 		}	
 	

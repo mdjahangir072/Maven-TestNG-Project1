@@ -24,7 +24,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class BootsTrapLogin {
+public class BootsTrapLoginTest {
 	
 	static WebDriver driver;
 	

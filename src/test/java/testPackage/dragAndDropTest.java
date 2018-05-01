@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,18 +17,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class DatePickerMakeMyTrip {
+public class dragAndDropTest {
 	
 	static WebDriver driver;
 	
 	
 	@Test
-	public static void PickDate () throws InterruptedException, IOException {
+	public static void dragAndDrop () throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 		
 		
@@ -57,9 +54,9 @@ public class DatePickerMakeMyTrip {
 		
 		case "Firefox":
 			System.setProperty("webdriver.gecko.driver", "D:\\JavaPrograms\\MyEclipseProjects\\ETL Hive Selenium\\driver\\geckodriver.exe");
-		//	DesiredCapabilities capibilities=DesiredCapabilities.firefox();
-		//	capibilities.setCapability("marionette", true);
-		//	driver=new FirefoxDriver(capibilities);
+			DesiredCapabilities capibilities=DesiredCapabilities.firefox();
+			capibilities.setCapability("marionette", true);
+			driver=new FirefoxDriver(capibilities);
 			driver=new FirefoxDriver();
 			break;
 		
@@ -73,40 +70,21 @@ public class DatePickerMakeMyTrip {
 		
 		}
 		
-		driver.get("https://www.makemytrip.com/");
+		driver.get("https://jqueryui.com/droppable/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		Actions act = new Actions(driver);
 		
-		driver.findElement(By.xpath("//input[@mt-id='departDate']")).click();
-		System.out.println("Clicked on Calender ");
-		List<WebElement> dates =driver.findElements(By.xpath("//div[@class='ui-datepicker-group ui-datepicker-group-first']//table[@class='ui-datepicker-calendar']"));
-		System.out.println("Got the Dates List"+dates);
-		int total_no=dates.size();
-		System.out.println("List Size "+total_no);
-		for (int i=0;i<total_no;i++)
-		{
-			System.out.println("In For ");
-			String date=dates.get(i).getText();
-					
-					System.out.println(date);
-				
-						if (date.equalsIgnoreCase("27"))
-						{
-							
-							System.out.println("In If");
-							//dates.get(i).click();
-							act.click(dates.get(i)).build().perform();
-							System.out.println();
-							Thread.sleep(2000);
-							break;
-						}
-					
-			
-		}
-				
+		driver.switchTo().frame(0);
+		Thread.sleep(5000);
 		
+		Actions act=new Actions(driver);
 		
+		WebElement drag=driver.findElement(By.xpath("*//*[@id='draggable']"));
+		
+		WebElement drop=driver.findElement(By.xpath("*//*[@id='droppable']"));
+	
+		act.dragAndDrop(drag, drop).build().perform();
+
 		driver.close();
 		
 		}	

@@ -31,7 +31,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class ScreenCapture {
+public class ScreenCaptureTest {
 	
 	static WebDriver driver;
 	
@@ -94,10 +94,10 @@ public class ScreenCapture {
 		
 		
 		driver.get("http://www.google.com/");
-		ScreenCapture.captureScreenShot(driver, "google");
+		ScreenCaptureTest.captureScreenShot(driver, "google");
 		
 		driver.manage().window().maximize();
-		ScreenCapture.captureScreenShot(driver, "maximize");
+		ScreenCaptureTest.captureScreenShot(driver, "maximize");
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		
 		//driver.findElement(By.xpath("//a[contains(text(),'animatecolors.xlsm')]")).click();

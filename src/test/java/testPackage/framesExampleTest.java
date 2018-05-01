@@ -2,34 +2,27 @@ package testPackage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class DatePickerYatra {
+public class framesExampleTest {
 	
 	static WebDriver driver;
 	
 	
 	@Test
-	public static void PickDate () throws InterruptedException, IOException {
+	public static void TestFB () throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 		
 		
@@ -57,9 +50,9 @@ public class DatePickerYatra {
 		
 		case "Firefox":
 			System.setProperty("webdriver.gecko.driver", "D:\\JavaPrograms\\MyEclipseProjects\\ETL Hive Selenium\\driver\\geckodriver.exe");
-		//	DesiredCapabilities capibilities=DesiredCapabilities.firefox();
-		//	capibilities.setCapability("marionette", true);
-		//	driver=new FirefoxDriver(capibilities);
+			DesiredCapabilities capibilities=DesiredCapabilities.firefox();
+			capibilities.setCapability("marionette", true);
+			driver=new FirefoxDriver(capibilities);
 			driver=new FirefoxDriver();
 			break;
 		
@@ -73,40 +66,23 @@ public class DatePickerYatra {
 		
 		}
 		
-		driver.get("https://www.yatra.com/");
+		driver.get("https://netbanking.hdfcbank.com/netbanking/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		Actions act = new Actions(driver);
+	//	driver.findElement(By.id("email")).sendKeys("md.jahangir072@gmail.com");
+	//	driver.findElement(By.id("pass")).sendKeys("");
 		
-		driver.findElement(By.xpath("//i[@id='ico-cal']")).click();
-		System.out.println("Clicked on Calender ");
-		List<WebElement> dates =driver.findElements(By.xpath("//table[@class='day-container-table']"));
-		System.out.println("Got the Dates List"+dates);
-		int total_no=dates.size();
-		System.out.println("List Size "+total_no);
-		for (int i=0;i<total_no;i++)
-		{
-			System.out.println("In For ");
-			String date=dates.get(i).getText();
-					
-					System.out.println(date);
-				
-						if (date.equalsIgnoreCase("27"))
-						{
-							
-							System.out.println("In If");
-							//dates.get(i).click();
-							act.click(dates.get(i)).build().perform();
-							System.out.println();
-							Thread.sleep(2000);
-							break;
-						}
-					
-			
-		}
-				
+		driver.switchTo().frame("login_page");
+		System.out.println(driver.getTitle());
+		driver.findElement(By.xpath("//input[@name='fldLoginUserId']")).sendKeys("12233");
+		driver.switchTo().defaultContent();
+		System.out.println(driver.getTitle());
 		
+		driver.switchTo().frame(0);
+		driver.findElement(By.xpath("//input[@name='fldLoginUserId']")).sendKeys("1223377777777777");
+		driver.findElement(By.xpath("//img[@alt='continue']")).click();
 		
+
 		driver.close();
 		
 		}	

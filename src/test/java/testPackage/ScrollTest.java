@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,7 +23,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class moveToElement {
+public class ScrollTest {
 	
 	static WebDriver driver;
 	
@@ -72,33 +73,23 @@ public class moveToElement {
 		
 		}
 		
-		driver.get("https://www.myntra.com/");
+		driver.get("https://www.jqueryui.com/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		
-		Actions act=new Actions(driver);
-		WebElement men=driver.findElement(By.xpath("//a[@href='/shop/men']"));
-		act.moveToElement(men).build().perform();
-		System.out.println("Moved To :"+men.getText());
+		
+		JavascriptExecutor je2= (JavascriptExecutor)driver;
+		je2.executeScript("scroll(0, 400)");
+		
+		JavascriptExecutor je=  (JavascriptExecutor)driver;
+		WebElement widget=driver.findElement(By.xpath("//a[text()='Widget Factory']"));
+		je.executeScript("arguments[0].scrollIntoView(true)", widget);
+		widget.click();
+		
+		driver.close();
 		
 		
-		
-		WebDriverWait wait=new WebDriverWait(driver, 30);
-		
-		
-		WebElement ments=driver.findElement(By.xpath("//a[@href='/men-tshirts?src=tNav']"));
-		//WebElement ments=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/men-tshirts?src=tNav']")));
-		
-		wait.until(ExpectedConditions.elementToBeClickable(men));
-		
-		System.out.println(ments.getText());
-		ments.click();
-		
-		
-		driver.quit();
-		
-
-		
+	
 		
 		}	
 	

@@ -15,7 +15,7 @@ import org.openqa.selenium.os.WindowsUtils;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
-public class Day1Demo2 {
+public class Day1Demo2Test {
 	
 	static WebDriver driver;
 	

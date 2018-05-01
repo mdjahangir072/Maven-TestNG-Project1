@@ -15,17 +15,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class multipleWindows {
+public class moveToElementTest {
 	
 	static WebDriver driver;
 	
 	
 	@Test
-	public static void TestFB () throws InterruptedException, IOException {
+	public static void moveToElement () throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 		
 		
@@ -53,9 +56,9 @@ public class multipleWindows {
 		
 		case "Firefox":
 			System.setProperty("webdriver.gecko.driver", "D:\\JavaPrograms\\MyEclipseProjects\\ETL Hive Selenium\\driver\\geckodriver.exe");
-			DesiredCapabilities capibilities=DesiredCapabilities.firefox();
-			capibilities.setCapability("marionette", true);
-			driver=new FirefoxDriver(capibilities);
+		//	DesiredCapabilities capibilities=DesiredCapabilities.firefox();
+		//	capibilities.setCapability("marionette", true);
+		//	driver=new FirefoxDriver(capibilities);
 			driver=new FirefoxDriver();
 			break;
 		
@@ -69,38 +72,30 @@ public class multipleWindows {
 		
 		}
 		
-		driver.get("https://www.naukri.com/");
+		driver.get("https://www.myntra.com/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		
-		String parent=driver.getWindowHandle();
-		System.out.println("Parent is :"+parent);
+		Actions act=new Actions(driver);
+		WebElement men=driver.findElement(By.xpath("//a[@href='/shop/men']"));
+		act.moveToElement(men).build().perform();
+		System.out.println("Moved To :"+men.getText());
 		
-		Set<String> s1= driver.getWindowHandles();
 		
-		Iterator<String> itr=s1.iterator();
 		
-		while(itr.hasNext())
-		{
-			
-			String child_window=itr.next();
-			System.out.println("Child Window is : "+child_window);
-			
-			
-			
-			if (!parent.equals(child_window))
-				
-			{
-				
-				driver.switchTo().window(child_window);
-				System.out.println(driver.switchTo().window(child_window).getTitle());
-				driver.close();
-			}
-		}
-	
+		WebDriverWait wait=new WebDriverWait(driver, 30);
 		
-	driver.switchTo().window(parent);
-	driver.quit();
+		
+		WebElement ments=driver.findElement(By.xpath("//a[@href='/men-tshirts?src=tNav']"));
+		//WebElement ments=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/men-tshirts?src=tNav']")));
+		
+		wait.until(ExpectedConditions.elementToBeClickable(men));
+		
+		System.out.println(ments.getText());
+		ments.click();
+		
+		
+		driver.quit();
 		
 
 		
